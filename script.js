@@ -1,11 +1,1 @@
-function openModal(){
-    const modal = document.getElementById('modal-container')
-    modal.classList.add('mostrar')
-
-    modal.addEventListener('click', (e) =>{
-        if (e.target.id == 'modal-container' || e.target.id == "fechar"){
-            modal.classList.remove('mostrar')
-            localStorage.fechaModal = 'modal-container'
-        }
-    })
-}
+const openButton=document.querySelector('#open');const backdrop=document.querySelector('#backdrop');const dialog=backdrop.querySelector('.dialog');const closeButton=document.querySelector('#close');const cancelButton=document.querySelector('#cancel');const confirmButton=document.querySelector('#confirm');const status=document.querySelector('#status');let previousFocus=null;function openDialog(){previousFocus=document.activeElement;backdrop.hidden=false;cancelButton.focus()}function closeDialog(){backdrop.hidden=true;previousFocus?.focus()}openButton.addEventListener('click',openDialog);closeButton.addEventListener('click',closeDialog);cancelButton.addEventListener('click',closeDialog);confirmButton.addEventListener('click',()=>{status.textContent='Item removido na demonstração.';closeDialog()});backdrop.addEventListener('click',e=>{if(e.target===backdrop)closeDialog()});document.addEventListener('keydown',e=>{if(backdrop.hidden)return;if(e.key==='Escape'){closeDialog();return}if(e.key==='Tab'){const focusable=[...dialog.querySelectorAll('button')];const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
